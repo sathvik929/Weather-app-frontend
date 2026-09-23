@@ -31,7 +31,7 @@ For the smoothest local experience, serve the folder with a simple local server:
 python -m http.server 5500
 ```
 
-Then visit [http://localhost:5500/login.html](http://localhost:5500/login.html).
+Then visit file:///C:/Users/Sathvik/Downloads/Weather%20app%20frontend/login.html
 
 ## Demo Access
 
