@@ -2,10 +2,15 @@ const API_KEY = 'a22afed2f45c09ee8599810b439bccd6'; // Replace with your free Op
 const DEFAULT_CITY = 'Vijayawada';
 const OPEN_WEATHER_URL = 'https://api.openweathermap.org/data/2.5';
 
-const state = { weather: null, favorites: JSON.parse(localStorage.getItem('atmosFavorites') || '[]') };
+const username = sessionStorage.getItem('atmosUsername') || 'user';
+const favoritesKey = `atmosFavorites_${username.toLowerCase()}`;
+let storedFavorites = [];
+try { storedFavorites = JSON.parse(localStorage.getItem(favoritesKey) || '[]'); } catch (error) { localStorage.removeItem(favoritesKey); }
+const state = { weather: null, favorites: Array.isArray(storedFavorites) ? storedFavorites : [] };
 const $ = (selector) => document.querySelector(selector);
 
 if (sessionStorage.getItem('atmosAuthenticated') !== 'true') window.location.href = 'login.html';
+if (sessionStorage.getItem('atmosRole') === 'admin') window.location.href = 'admin.html';
 
 const iconMap = { '01d': 'fa-sun', '01n': 'fa-moon', '02d': 'fa-cloud-sun', '02n': 'fa-cloud-moon', '03d': 'fa-cloud', '03n': 'fa-cloud', '04d': 'fa-cloud', '04n': 'fa-cloud', '09d': 'fa-cloud-showers-heavy', '09n': 'fa-cloud-showers-heavy', '10d': 'fa-cloud-sun-rain', '10n': 'fa-cloud-moon-rain', '11d': 'fa-cloud-bolt', '11n': 'fa-cloud-bolt', '13d': 'fa-snowflake', '13n': 'fa-snowflake', '50d': 'fa-smog', '50n': 'fa-smog' };
 const weatherIcon = (iconCode) => iconMap[iconCode] || 'fa-cloud-sun';
@@ -89,9 +94,9 @@ $('#searchButton').addEventListener('click', () => loadCity($('#cityInput').valu
 $('#cityInput').addEventListener('keydown', (event) => { if (event.key === 'Enter') loadCity($('#cityInput').value); });
 $('#clearSearch').addEventListener('click', () => { $('#cityInput').value = ''; $('#cityInput').focus(); });
 $('#locationButton').addEventListener('click', useLocation);
-$('#logoutButton').addEventListener('click', () => { sessionStorage.removeItem('atmosAuthenticated'); window.location.href = 'login.html'; });
-$('#favoriteButton').addEventListener('click', () => { if (!state.weather) return; const city = state.weather.current.name; state.favorites = state.favorites.includes(city) ? state.favorites.filter((favorite) => favorite !== city) : [...state.favorites, city]; localStorage.setItem('atmosFavorites', JSON.stringify(state.favorites)); renderFavorites(); renderCurrent(state.weather); showToast(state.favorites.includes(city) ? `${city} added to favorites` : `${city} removed from favorites`); });
-$('#favoritesList').addEventListener('click', (event) => { const removeButton = event.target.closest('[data-remove]'); if (removeButton) { state.favorites = state.favorites.filter((city) => city !== removeButton.dataset.remove); localStorage.setItem('atmosFavorites', JSON.stringify(state.favorites)); renderFavorites(); return; } const favorite = event.target.closest('[data-city]'); if (favorite) loadCity(favorite.dataset.city); });
+$('#logoutButton').addEventListener('click', () => { sessionStorage.clear(); window.location.href = 'login.html'; });
+$('#favoriteButton').addEventListener('click', () => { if (!state.weather) return; const city = state.weather.current.name; state.favorites = state.favorites.includes(city) ? state.favorites.filter((favorite) => favorite !== city) : [...state.favorites, city]; localStorage.setItem(favoritesKey, JSON.stringify(state.favorites)); renderFavorites(); renderCurrent(state.weather); showToast(state.favorites.includes(city) ? `${city} added to favorites` : `${city} removed from favorites`); });
+$('#favoritesList').addEventListener('click', (event) => { const removeButton = event.target.closest('[data-remove]'); if (removeButton) { state.favorites = state.favorites.filter((city) => city !== removeButton.dataset.remove); localStorage.setItem(favoritesKey, JSON.stringify(state.favorites)); renderFavorites(); return; } const favorite = event.target.closest('[data-city]'); if (favorite) loadCity(favorite.dataset.city); });
 $('#themeToggle').addEventListener('click', () => { document.body.classList.toggle('dark-theme'); localStorage.setItem('atmosTheme', document.body.classList.contains('dark-theme') ? 'dark' : 'light'); });
 $('#menuButton').addEventListener('click', () => showToast('Navigation is available on the desktop sidebar.'));
 

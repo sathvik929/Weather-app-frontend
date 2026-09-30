@@ -28,16 +28,24 @@
     <section class="login-panel">
       <div class="login-card">
         <div class="mobile-brand"><span class="brand-mark"><i class="fa-solid fa-cloud-sun"></i></span><strong>ATMOS</strong></div>
-        <div class="login-heading"><p class="eyebrow">Welcome back</p><h2>See what’s<br>happening outside.</h2><p>Sign in to get your personal forecast.</p></div>
+        <div class="login-heading" id="loginHeading"><p class="eyebrow">Welcome back</p><h2>See what’s<br>happening outside.</h2><p>Sign in to get your personal forecast.</p></div>
         <form id="loginForm" novalidate>
           <div class="field-group"><label for="username">Username</label><div class="input-wrap"><i class="fa-regular fa-user"></i><input id="username" name="username" type="text" autocomplete="username" placeholder="Enter your username" required><span class="field-status"></span></div></div>
           <div class="field-group"><label for="password">Password</label><div class="input-wrap"><i class="fa-solid fa-lock"></i><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required><button class="icon-button password-toggle" type="button" aria-label="Show password"><i class="fa-regular fa-eye"></i></button></div></div>
           <p class="form-error" id="loginError" role="alert"></p>
           <button class="primary-button login-button" type="submit">Enter Atmos <i class="fa-solid fa-arrow-right"></i></button>
         </form>
-        <p class="demo-hint"><i class="fa-solid fa-circle-info"></i> Demo access: <strong>admin</strong> / <strong>admin123</strong></p>
+        <form id="signupForm" class="signup-form" hidden novalidate>
+          <div class="field-group"><label for="signupUsername">Username</label><div class="input-wrap"><i class="fa-regular fa-user"></i><input id="signupUsername" name="username" type="text" autocomplete="username" placeholder="Choose a username" required></div></div>
+          <div class="field-group"><label for="signupPassword">Password</label><div class="input-wrap"><i class="fa-solid fa-lock"></i><input id="signupPassword" name="password" type="password" autocomplete="new-password" placeholder="Create a password" required><button class="icon-button password-toggle" type="button" data-target="signupPassword" aria-label="Show password"><i class="fa-regular fa-eye"></i></button></div></div>
+          <div class="field-group"><label for="signupConfirmPassword">Confirm password</label><div class="input-wrap"><i class="fa-solid fa-shield-halved"></i><input id="signupConfirmPassword" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Repeat your password" required></div></div>
+          <p class="form-error" id="signupError" role="alert"></p>
+          <button class="primary-button login-button" type="submit">Create account <i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+        <p class="auth-switch"><span id="authSwitchText">New to Atmos?</span> <button type="button" id="authSwitch">Create an account</button></p>
+        <p class="admin-access-link"><a href="admin-login.html"><i class="fa-solid fa-shield-halved"></i> Administrator access</a></p>
       </div>
-      <p class="login-legal">By continuing, you agree to use this demo application responsibly.</p>
+      <p class="login-legal">By continuing, you agree to use Atmos responsibly.</p>
     </section>
   </main>
   <script src="js/login.js"></script>

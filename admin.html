@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Atmos administration dashboard">
+  <title>Admin | Atmos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="dashboard-page admin-page">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="admin.html"><span class="brand-mark"><i class="fa-solid fa-cloud-sun"></i></span><span>ATMOS</span></a>
+      <nav class="side-nav" aria-label="Admin navigation"><a class="nav-item active" href="#overview"><i class="fa-solid fa-chart-line"></i><span>Overview</span></a><a class="nav-item" href="#users"><i class="fa-solid fa-users"></i><span>Users</span></a><a class="nav-item" href="#system"><i class="fa-solid fa-server"></i><span>System</span></a></nav>
+      <div class="sidebar-bottom"><div class="sidebar-note"><i class="fa-solid fa-shield-halved"></i><p>Admin workspace<br><strong>Control center.</strong></p></div><button class="nav-item logout-button" id="logoutButton"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Log out</span></button></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><div class="mobile-top"><button class="icon-button menu-button" id="menuButton" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button><a class="brand" href="admin.html"><span class="brand-mark"><i class="fa-solid fa-cloud-sun"></i></span><span>ATMOS</span></a></div><div class="topbar-actions"><span class="live-status"><span class="status-dot"></span> Admin mode</span><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><i class="fa-regular fa-moon"></i><span class="toggle-track"><span class="toggle-thumb"></span></span><i class="fa-regular fa-sun"></i></button><div class="user-avatar">A</div></div></header>
+
+      <section class="welcome-row" id="overview"><div><p class="eyebrow">Administration</p><h1>Good morning, <span>Admin.</span></h1></div><p class="current-date" id="currentDate"></p></section>
+      <section class="admin-stat-grid" aria-label="System summary"><article class="admin-stat panel"><span class="admin-stat-icon"><i class="fa-solid fa-users"></i></span><div><span>Registered users</span><strong id="registeredUsers">0</strong></div><small>Stored in this browser</small></article><article class="admin-stat panel"><span class="admin-stat-icon"><i class="fa-solid fa-cloud-sun"></i></span><div><span>Weather searches</span><strong>1,284</strong></div><small>Demo activity</small></article><article class="admin-stat panel"><span class="admin-stat-icon"><i class="fa-solid fa-heart"></i></span><div><span>Saved locations</span><strong id="savedLocations">0</strong></div><small>Across registered users</small></article><article class="admin-stat panel"><span class="admin-stat-icon"><i class="fa-solid fa-circle-check"></i></span><div><span>API status</span><strong>Operational</strong></div><small>OpenWeatherMap connected</small></article></section>
+
+      <section class="admin-content-grid" id="users"><article class="panel admin-table-panel"><div class="section-heading"><div><p class="eyebrow">Access management</p><h2>Registered users</h2></div><span class="section-caption">Local accounts</span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>User</th><th>Role</th><th>Last active</th><th>Status</th></tr></thead><tbody id="userTableBody"></tbody></table></div></article><article class="panel activity-panel" id="system"><div class="section-heading"><div><p class="eyebrow">Audit trail</p><h2>Recent activity</h2></div><i class="fa-solid fa-clock-rotate-left panel-icon"></i></div><div class="activity-list"><div><i class="fa-solid fa-right-to-bracket"></i><p><strong>admin signed in</strong><span>Just now</span></p></div><div><i class="fa-solid fa-magnifying-glass"></i><p><strong>Weather module ready</strong><span>Local dashboard</span></p></div><div><i class="fa-solid fa-user-plus"></i><p><strong>Signup enabled</strong><span>Local account registration</span></p></div></div></article></section>
+
+      <section class="admin-system panel"><div class="section-heading"><div><p class="eyebrow">Service health</p><h2>System status</h2></div><span class="status-label online">All systems operational</span></div><div class="system-checks"><div><span><i class="fa-solid fa-circle-check"></i> Authentication</span><strong>Ready</strong></div><div><span><i class="fa-solid fa-circle-check"></i> Weather API</span><strong>Connected</strong></div><div><span><i class="fa-solid fa-circle-check"></i> Local storage</span><strong>Available</strong></div></div></section>
+      <footer class="app-footer"><span>ATMOS Admin Console</span><span>Frontend administration module</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/admin.js"></script>
+</body>
+</html>
