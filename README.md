@@ -2,7 +2,7 @@
 
 > A calmer way to read the sky.
 
-ATMOS is a responsive weather dashboard designed to make everyday forecasts feel clear, useful, and easy to scan. Search for any city, check the conditions that matter, and keep favorite places close at hand.
+ATMOS is a responsive React + Vite weather dashboard designed to make everyday forecasts feel clear, useful, and easy to scan. Search for any city, check the conditions that matter, and keep favorite places close at hand.
 
 ## Highlights
 
@@ -15,56 +15,58 @@ ATMOS is a responsive weather dashboard designed to make everyday forecasts feel
 - Light and dark themes
 - Responsive login, signup, dashboard, and admin layouts
 - Signup and login accounts stored in browser `localStorage`
-- JavaScript role-based navigation between user and admin modules
+- React role-based navigation between user and admin modules
 
 ## Quick Start
 
-ATMOS is a browser-first static project, so no build tool or backend is required.
+ATMOS is a React application powered by Vite.
 
-1. Clone or download this repository.
-2. Add your OpenWeatherMap API key in `js/weather.js`.
-3. Open `login.html` in a browser.
-4. Create an account using Signup or sign in with an existing local account.
-
-For the smoothest local experience, serve the folder with a simple local server:
+1. Install Node.js 18 or newer.
+2. Install dependencies:
 
 ```bash
-python -m http.server 5500
+npm install
 ```
 
-Then visit [http://localhost:5500/login.html](http://localhost:5500/login.html).
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+Open the URL printed by Vite, usually [http://localhost:5173](http://localhost:5173).
 
 ## Authentication
 
-New accounts are created as regular users and stored in `localStorage` for this browser. The built-in administrator account is seeded locally on first use with username `admin` and password `admin123`; change or remove it before any real deployment. The admin module reads the stored account registry and per-user saved locations.
+New accounts are created as regular users and stored in `localStorage` for this browser. The built-in administrator account is seeded locally on first use with username `admin` and password `admin123`; change or remove it before any real deployment. The default user account is `user` / `user123`. The admin module reads the stored account registry and per-user saved locations.
 
 Authentication is intentionally local and backend-free. Signup creates a regular user account in browser `localStorage`; login creates a temporary session in `sessionStorage` and redirects users to the correct module.
 
 ## API Configuration
 
-Weather data comes from [OpenWeatherMap](https://openweathermap.org/api). In `js/weather.js`, replace the placeholder API key with your own key:
+Weather data uses the live [Open-Meteo forecast API](https://open-meteo.com/), city search uses Open-Meteo geocoding, current-location lookup uses browser geolocation plus OpenStreetMap reverse geocoding, and US severe alerts use the National Weather Service API. No API key is required for the current implementation.
 
-```js
-const API_KEY = 'YOUR_API_KEY';
-```
+## Modules and Project Structure
 
-Do not commit a private production API key to a public repository. For a real deployment, proxy weather requests through a backend or serverless function and keep the key in an environment variable. If the existing key has been shared publicly, revoke it and create a replacement.
+The React app has two clearly separated modules:
 
-## Project Structure
+- **User module:** signup/login, city search, current weather, five-day forecast, and per-user favorite cities.
+- **Admin module:** administrator-only login, account registry, saved-location totals, and system status.
+- **Live weather services:** current conditions, humidity, wind, visibility, sunrise/sunset, a five-day forecast, location-based lookup, OpenStreetMap map visuals, US severe alerts, and weather-aware recommendations.
 
 ```text
 .
-├── dashboard.html       # Main weather dashboard
-├── login.html           # Signup and sign-in screen
-├── admin-login.html      # Separate administrator sign-in screen
-├── admin.html           # Admin module
+├── index.html            # Vite HTML entry
+├── src/
+│   ├── main.jsx         # React components and application modules
+│   └── app.css          # React app styling
+├── package.json          # React/Vite scripts and dependencies
+├── vite.config.js        # Vite React plugin configuration
+├── vercel.json           # SPA rewrite configuration for Vercel
 ├── css/
-│   └── style.css        # Shared responsive styling and themes
-├── js/
-│   ├── login.js         # Local account registration and authentication
-│   ├── admin-login.js    # Administrator-only sign-in and redirection
-│   ├── admin.js         # Admin module and stored account summary
-│   └── weather.js        # Weather API, forecast, favorites, and UI logic
+│   └── style.css        # Shared visual styles retained by the React app
+├── dashboard.html        # Legacy static dashboard reference
+├── login.html            # Legacy static login reference
 └── images/              # Image assets
 ```
 
@@ -72,7 +74,8 @@ Do not commit a private production API key to a public repository. For a real de
 
 - Semantic HTML
 - CSS with responsive layouts, themes, and motion
-- Vanilla JavaScript
+- React 18
+- Vite
 - [OpenWeatherMap API](https://openweathermap.org/api)
 - [Font Awesome](https://fontawesome.com/)
 - Google Fonts: DM Sans and Space Grotesk
@@ -80,6 +83,13 @@ Do not commit a private production API key to a public repository. For a real de
 ## Browser Support
 
 Use a current version of Chrome, Edge, Firefox, or Safari. Location weather requires browser permission and a secure context such as `localhost` or HTTPS.
+
+## Vercel Deployment
+
+1. Push the repository to GitHub.
+2. Import it at [vercel.com/new](https://vercel.com/new).
+3. Keep the default settings: Vercel detects Vite, uses `npm run build`, and publishes `dist`.
+4. Deploy and open the generated HTTPS URL. The `vercel.json` rewrite keeps the single-page React routes working on refresh.
 
 ## License
 
