@@ -34,7 +34,8 @@ npm install
 npm run dev
 ```
 
-Open the URL printed by Vite, usually [http://localhost:5173](http://localhost:5173).
+Open the URL printed by Vite, usually https://weather-app-frontend-alpha-three.vercel.app
+
 
 ## Authentication
 
